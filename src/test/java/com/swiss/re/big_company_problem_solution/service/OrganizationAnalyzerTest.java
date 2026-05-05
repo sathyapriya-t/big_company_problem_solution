@@ -178,4 +178,17 @@ class OrganizationAnalyzerTest {
                 .hasMessageContaining("Expected exactly one CEO")
                 .hasMessageContaining("2");
     }
+
+  @Test
+  void analyzeTest_whenEmployeeHasOrphanManagerId_throwsIllegalArgumentException() {
+    List<Employee> employees = List.of(
+            emp(1, "CEO",     "A", 100000, null),
+            emp(2, "Manager", "B",  80000, 1),
+            emp(3, "Orphan",  "C",  60000, 999)  // 999 does not exist
+    );
+
+    assertThatThrownBy(() -> analyzer.analyze(employees))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("unknown managerId=999");
+  }
 }

@@ -183,3 +183,48 @@ CEO — Joe Doe (60,000)
  │         └── Brett Hardleaf (34,000)
  └── Bob Ronstad (47,000)
 ```
+
+---
+
+## How to Run
+
+### Using IntelliJ IDEA
+
+1. Open the project in IntelliJ IDEA
+2. Navigate to `src/main/java/com/swiss/re/big_company_solution_java/BigCompanyApplication.java`
+3. Click the green **Run** icon next to the `main()` method or press `Shift + F10`
+4. The application will load employees from `src/main/resources/data/employees.csv` and display analysis results
+
+### Using Maven (Command Line)
+
+```bash
+# Build the project
+./mvnw clean package
+
+# Run the application
+./mvnw exec:java -Dexec.mainClass="com.swiss.re.big_company_solution_java.BigCompanyApplication"
+```
+
+### Running Tests
+
+**In IntelliJ IDEA:**
+- Right-click on `src/test/java` directory → **Run 'Tests in 'java''**
+- Or run individual test classes by right-clicking and selecting **Run**
+
+**Using Maven:**
+```bash
+./mvnw clean test
+```
+
+### Using Alternative CSV Data
+
+To analyze a different dataset that covers all scenarios (underpaid managers, overpaid managers, deep reporting lines):
+
+**Edit `BigCompanyApplication.java`:**
+```java
+String filePath = "src/main/resources/data/employees-covering-all-scenarios.csv";
+```
+
+Then run the application again.
+
+

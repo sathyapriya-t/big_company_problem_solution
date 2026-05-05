@@ -3,7 +3,9 @@ package com.swiss.re.big_company_problem_solution;
 import com.swiss.re.big_company_problem_solution.model.AnalysisResult;
 import com.swiss.re.big_company_problem_solution.model.Employee;
 import com.swiss.re.big_company_problem_solution.parser.CsvEmployeeParser;
+import com.swiss.re.big_company_problem_solution.parser.EmployeeParser;
 import com.swiss.re.big_company_problem_solution.report.ReportPrinter;
+import com.swiss.re.big_company_problem_solution.service.OrganizationAnalyzer;
 import com.swiss.re.big_company_problem_solution.service.OrganizationAnalyzerImpl;
 
 import java.util.List;
@@ -13,9 +15,9 @@ import java.util.List;
  * Wires together the CSV parser, the organization analyzer, and the report printer
  * without a dependency-injection container.
  * An optional CSV file path may be supplied as the first command-line argument.
- * If no argument is given,
- * the file at src/main/resources/data/employees.csv is used instead.(Sample file given in problem statement)
- * the file at src/main/resources/data/employees-covering-all-scenarios.csv is a new sample file created to cover all the scenarios.
+ * If no argument is given, the bundled sample file is used.
+ * Concrete implementations are assigned to their interface types here at the
+ * composition root, satisfying the Dependency Inversion Principle.
  */
 public class BigCompanyApplication {
 
@@ -25,14 +27,16 @@ public class BigCompanyApplication {
   public static void main(String[] args) {
 
     String csvPath = (args.length > 0) ? args[0] : EMPLOYEES_CSV;
-    List<Employee> employees = new CsvEmployeeParser().parse(csvPath);
+    EmployeeParser parser = new CsvEmployeeParser();
+    List<Employee> employees = parser.parse(csvPath);
     if (employees.isEmpty()) {
       System.out.println("No employee data found. Please check: " + csvPath);
       return;
     }
 
     System.out.println("Loaded " + employees.size() + " employees from: " + csvPath + "\n");
-    AnalysisResult result = new OrganizationAnalyzerImpl().analyze(employees);
+    OrganizationAnalyzer analyzer = new OrganizationAnalyzerImpl();
+    AnalysisResult result = analyzer.analyze(employees);
     new ReportPrinter().print(result);
   }
 }
