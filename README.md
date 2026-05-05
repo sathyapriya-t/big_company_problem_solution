@@ -22,8 +22,8 @@ structure to identify potential improvements. The board wants to ensure:
 |------------|---------|-------------------------------|
 | Java SE    | 21      | Language & runtime            |
 | Maven      | Wrapper | Build & dependency management |
-| JUnit 5    | 5.11.0  | Unit & integration tests      |
-| AssertJ    | 3.26.3  | Fluent test assertions        |
+| JUnit 5    | 6.0.3   | Unit & integration tests      |
+| AssertJ    | 3.27.7  | Fluent test assertions        |
 
 > No Spring/SpringBoot, no Lombok, no external runtime dependencies - pure Java SE(21) as required.
 
